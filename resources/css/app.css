@@ -1,0 +1,201 @@
+ul.item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.item-list li {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 40px 10px 10px;
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative;
+  }
+
+  ul.item-list li:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.01);
+  }
+
+  .delete-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+    transition: color 0.3s;
+  }
+
+  .delete-icon:hover {
+    color: #ff6b6b;
+  }
+
+
+
+  ul.item-list li.editing {
+    background-color: #fff;
+  }
+  ul.item-list li {
+    position: relative;
+    padding-right: 60px; /* Asegura espacio para ambos iconos (editar y eliminar) */
+    display: flex; /* Usamos flexbox para alinear elementos */
+    align-items: center; /* Alinea verticalmente el contenido */
+  }
+
+  ul.item-list li .edit-input {
+    border: none;
+    background-color: transparent;
+    font-size: inherit;
+    color: inherit;
+    width: 100%; /* Asegura que el input ocupe todo el espacio */
+    padding: 0; /* Elimina el padding para que no cambie de tamaño */
+    box-sizing: border-box; /* Para que el padding no afecte el tamaño */
+  }
+
+  ul.item-list li .edit-input:focus {
+    outline: none;
+  }
+
+  ul.item-list li .edit-icon,
+  ul.item-list li .save-icon,
+  ul.item-list li .delete-icon,
+  ul.item-list li .spin-icon {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px; /* Espacio entre iconos */
+  }
+
+  ul.item-list li .spin-icon {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Mantenemos los iconos de edición y eliminación en la misma línea */
+  ul.item-list li .edit-icon,
+  ul.item-list li .save-icon {
+    margin-left: auto; /* Empuja los iconos hacia la derecha */
+  }
+
+  ul.item-list li .delete-icon {
+    margin-left: 10px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+
+  form {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+
+
+  /***************************************************************/
+
+
+
+
+
+
+
+.chat-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.chat-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* Ajusta la altura según sea necesario */
+    background-color: #92acc742;
+
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 12px;
+}
+
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 4px 0;
+    max-width: 80%;
+    display: inline-block;
+    word-break: break-word;
+}
+
+.message.own {
+    background-color: #afd3ff; /* Fondo verde para mensajes propios */
+    align-self: flex-end; /* Mensajes propios a la derecha */
+
+}
+
+.message:not(.own) {
+    background-color: #ffffff; /* Fondo blanco para mensajes ajenos */
+    align-self: flex-start; /* Mensajes ajenos a la izquierda */
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.chat-input button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
