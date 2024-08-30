@@ -20,7 +20,14 @@
 
 ## Running Server
 - php artisan serve
+- php artisan reverb:start
+
 
 ## Running frontend
 - npm run dev
 - go to http://localhost:8000
+
+
+
+
+
