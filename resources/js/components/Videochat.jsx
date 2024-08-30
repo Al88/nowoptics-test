@@ -21,7 +21,7 @@ function Videochat() {
 
     // Setup signaling channel for WebRTC
     signalingChannel.listen('.signal', function(data) {
-        handleSignalingData();
+        handleSignalingData(data);
     });
     // Setup WebRTC peer connection
     const pc = new RTCPeerConnection(configuration);
