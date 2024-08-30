@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import configuration from '../config';
 
-const signalingChannel = window.Pusher.subscribe('webrtc-signaling');
+const signalingChannel = window.Echo.channel('webrtc-signaling');
 
 function Videochat() {
   const [messages, setMessages] = useState([]);
@@ -20,8 +20,9 @@ function Videochat() {
     loadMessages();
 
     // Setup signaling channel for WebRTC
-    signalingChannel.bind('signal', handleSignalingData);
-
+    signalingChannel.listen('.signal', function(data) {
+        handleSignalingData();
+    });
     // Setup WebRTC peer connection
     const pc = new RTCPeerConnection(configuration);
 
@@ -57,7 +58,8 @@ function Videochat() {
     setPeerConnection(pc);
 
     return () => {
-      signalingChannel.unbind('signal', handleSignalingData);
+      window.Echo.leaveChannel('signal');
+
       if (pc) {
         pc.close();
       }
@@ -160,56 +162,7 @@ function Videochat() {
 
   return (
     <div className="chat-container">
-      <div className="chat-box">
-        <h3>User 1 Chat</h3>
-        <div className="messages">
-          {messages
-            .filter(msg => msg.username === 'User 1')
-            .map((msg, index) => (
-              <div
-                key={index}
-                className={`message own`}
-              >
-                {msg.message}
-              </div>
-            ))}
-          <div ref={messagesEndRefUser1} />
-        </div>
-        <div className="chat-input">
-          <input
-            type="text"
-            value={newMessageUser1}
-            onChange={(e) => setNewMessageUser1(e.target.value)}
-            placeholder="Type a message..."
-          />
-          <button onClick={sendMessageUser1}>Send</button>
-        </div>
-      </div>
-      <div className="chat-box">
-        <h3>User 2 Chat</h3>
-        <div className="messages">
-          {messages
-            .filter(msg => msg.username === 'User 2')
-            .map((msg, index) => (
-              <div
-                key={index}
-                className={`message own`}
-              >
-                {msg.message}
-              </div>
-            ))}
-          <div ref={messagesEndRefUser2} />
-        </div>
-        <div className="chat-input">
-          <input
-            type="text"
-            value={newMessageUser2}
-            onChange={(e) => setNewMessageUser2(e.target.value)}
-            placeholder="Type a message..."
-          />
-          <button onClick={sendMessageUser2}>Send</button>
-        </div>
-      </div>
+
       <div className="video-container">
         <video ref={localVideoRef} autoPlay muted></video>
         <video ref={remoteVideoRef} autoPlay></video>

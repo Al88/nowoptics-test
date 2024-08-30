@@ -15,14 +15,14 @@ function ItemList() {
     connectWebSocket();
     getMessages();
     return () => {
-        window.Pusher.unsubscribe('items');
+        window.Echo.leaveChannel('items');
     };
   }, []);
 
   const connectWebSocket = () => {
-    var channel = window.Pusher.subscribe('items');
+    const channel = window.Echo.channel('items');
 
-    channel.bind('updated', function(data) {
+    channel.listen('.updated', function(data) {
         getMessages();
         console.log(1);
         notify("Item " + data.message +" successfully!");

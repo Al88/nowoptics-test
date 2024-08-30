@@ -12,13 +12,13 @@ function Chat() {
     useEffect(() => {
         loadMessages();
 
-        const channel = window.Pusher.subscribe('chat');
-        channel.bind('sent', function(data) {
+        const channel = window.Echo.channel('chat');
+        channel.listen('.sent', function(data) {
             loadMessages();
         });
 
         return () => {
-            window.Pusher.unsubscribe('chat');
+            window.Echo.leaveChannel('chat');
         };
     }, []);
 
